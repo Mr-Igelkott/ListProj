@@ -3,7 +3,7 @@ using System.Text;
 
 namespace List
 {
-    public class LinkedList: IList
+    public class LinkedList : IList
     {
         private Node _root;
         private Node _tail;
@@ -49,9 +49,9 @@ namespace List
             _tail = _root;
         }
 
-        public static LinkedList Create (int[] array)
+        public static LinkedList Create(int[] array)
         {
-            if (!(array is null))
+            if (array != null)
             {
                 return new LinkedList(array);
             }
@@ -78,7 +78,7 @@ namespace List
         }
         public void Add(IList list)
         {
-            if (!(list is null))
+            if (list != null)
             {
                 LinkedList addList = LinkedList.Create(list.ToArray());
                 if (Length > 0)
@@ -104,11 +104,11 @@ namespace List
             Node first = new Node(value);
             first.Next = _root;
             _root = first;
-            ++Length;
+            Length++;
         }
         public void AddToStart(IList list)
         {
-            if (!(list is null))
+            if (list != null)
             {
                 LinkedList addList = LinkedList.Create(list.ToArray());
 
@@ -126,8 +126,8 @@ namespace List
         }
         public void AddByIndex(int index, int value)
         {
-            if((index == 0 && Length == 0)
-                || (index >=0 && index < Length))
+            if ((index == 0 && Length == 0)
+                || (index >= 0 && index < Length))
             {
                 if (index > 0)
                 {
@@ -151,7 +151,7 @@ namespace List
         }
         public void AddByIndex(int index, IList list)
         {
-            if (!(list is null))
+            if (list != null)
             {
                 if ((index == 0 && Length == 0)
                 || (index >= 0 && index < Length))
@@ -350,10 +350,10 @@ namespace List
             }
         }
 
-        public int FindIndexOf (int value)
+        public int FindIndexOf(int value)
         {
             Node current = _root;
-            for (int i = 0; i < Length; ++i)
+            for (int i = 0; i < Length; i++)
             {
                 if (current.Value == value)
                 {
@@ -367,7 +367,7 @@ namespace List
 
         public void Reverse()
         {
-            if (!(this is null))
+            if (this != null)
             {
                 if (Length > 1)
                 {
@@ -376,9 +376,9 @@ namespace List
                     Node scndStep = _root.Next.Next;
                     _root.Next = null;
 
-                    while (!(scndStep is null))
+                    while (scndStep != null)
                     {
-                        if (scndStep.Next is null)
+                        if (scndStep.Next == null)
                         {
                             _tail = _tail.Next;
                         }
@@ -449,7 +449,7 @@ namespace List
             return GetNodeByIndex(FindIndexOfMinElement()).Value;
         }
 
-        public void RemoveFirstValue (int value)
+        public void RemoveFirstValue(int value)
         {
             int index = FindIndexOf(value);
             if (index >= 0)
@@ -470,10 +470,10 @@ namespace List
 
         public void Sort(bool isAscending)
         {
-            if (!(this is null))
+            if (this != null)
             {
                 Node new_root = null;
-                while (!(_root is null))
+                while (_root != null)
                 {
                     Node tmp = _root;
                     _root = _root.Next;
@@ -495,7 +495,7 @@ namespace List
                         Node curent = new_root;
 
                         while ((!(curent.Next is null) && tmp.Value > curent.Next.Value && isAscending)
-                            || !(curent.Next is null) && tmp .Value < curent.Next.Value && !isAscending)
+                            || !(curent.Next is null) && tmp.Value < curent.Next.Value && !isAscending)
                         {
                             curent = curent.Next;
                         }
@@ -543,9 +543,9 @@ namespace List
 
         public override bool Equals(object obj)
         {
-            if (!(obj is null) || obj is LinkedList)
+            if (obj != null && obj is LinkedList linkedList)
             {
-                LinkedList list = (LinkedList)obj;
+                LinkedList list = linkedList;
                 bool isEqual = false;
 
                 if (this.Length == list.Length)

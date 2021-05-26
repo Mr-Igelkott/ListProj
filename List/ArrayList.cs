@@ -3,12 +3,13 @@ using System.Text;
 
 namespace List
 {
-    public class ArrayList: IList
+    public class ArrayList : IList
     {
         public int Length { get; private set; }
-        const double LengthDelta = 1.33d; 
+        const double LengthDelta = 1.33d;
 
         private int[] _array;
+
         public int this[int index]
         {
             get
@@ -34,6 +35,7 @@ namespace List
                 }
             }
         }
+
         public ArrayList()
         {
             Length = 0;
@@ -49,7 +51,7 @@ namespace List
 
         public static ArrayList Create(int[] initArray)
         {
-            if(!(initArray is null))
+            if (initArray != null)
             {
                 return new ArrayList(initArray);
             }
@@ -58,28 +60,31 @@ namespace List
                 throw new ArgumentNullException();
             }
         }
+
         private ArrayList(int[] initArray)
         {
             Length = initArray.Length;
             int realLength = (int)(Length * LengthDelta + 1);
             _array = new int[realLength];
+
             for (int i = 0; i < Length; ++i)
             {
                 _array[i] = initArray[i];
             }
         }
+
         public void Add(int value)
         {
             this.Resize(Length);
             _array[Length] = value;
-            ++Length;
+            Length++;
         }
 
         public void Add(IList addList)
         {
-            if (!(addList is null))
+            if (addList != null)
             {
-                ArrayList list = ArrayList.Create(addList.ToArray());
+                ArrayList list = Create(addList.ToArray());
                 int prevLength = Length;
                 Length += list.Length;
                 this.Resize(prevLength);
@@ -93,16 +98,18 @@ namespace List
                 throw new ArgumentNullException("can't add null");
             }
         }
+
         public void AddToStart(int value)
         {
-            ++Length;
+            Length++;
             Resize(Length);
             MoveRight(0, 1);
             _array[0] = value;
         }
+
         public void AddToStart(IList addList)
         {
-            if (!(addList is null))
+            if (addList != null)
             {
                 AddByIndex(0, addList);
             }
@@ -111,12 +118,13 @@ namespace List
                 throw new ArgumentNullException("can't add NULL value");
             }
         }
+
         public void AddByIndex(int index, int value)
         {
             if ((index == 0 && Length == 0) || (index >= 0 && index < Length))
             {
                 Resize(Length);
-                ++Length;
+                Length++;
                 MoveRight(index, 1);
                 _array[index] = value;
             }
@@ -125,9 +133,10 @@ namespace List
                 throw new IndexOutOfRangeException();
             }
         }
+
         public void AddByIndex(int index, IList addList)
         {
-            if (!(addList is null))
+            if (addList != null)
             {
                 if ((index == 0 && Length == 0) || (index >= 0 && index < Length))
                 {
@@ -137,6 +146,7 @@ namespace List
                     Resize(prevLength);
                     int moveIndex = index + list.Length - 1;
                     MoveRight(moveIndex, list.Length);
+
                     for (int i = 0; i < list.Length; ++i)
                     {
                         _array[i + index] = list[i];
@@ -152,14 +162,16 @@ namespace List
                 throw new ArgumentNullException("U can't add NULL, dummy");
             }
         }
+
         public void Remove()
         {
             if (Length > 0)
             {
-                --Length;
+                Length--;
                 Resize(Length);
             }
         }
+
         public void Remove(int nElmnt)
         {
             if (nElmnt >= 0)
@@ -172,18 +184,20 @@ namespace List
                 throw new ArgumentException("U can't remove negative nElmnt");
             }
         }
+
         public void RemoveAtStart()
         {
             if (Length > 0)
             {
                 MoveLeft(0, 1);
-                --Length;
+                Length--;
                 Resize(Length);
             }
         }
+
         public void RemoveAtStart(int nElmnt)
         {
-             if (nElmnt >= 0)
+            if (nElmnt >= 0)
             {
                 Length -= Length >= nElmnt ? nElmnt : Length;
                 MoveLeft(0, nElmnt);
@@ -194,13 +208,14 @@ namespace List
                 throw new ArgumentException("U can't remove negative nElmnt");
             }
         }
+
         public void RemoveByIndex(int index)
         {
             if ((index == 0 && Length == 0) || (index >= 0 && index < Length))
             {
-                if (!(Length == 0))
+                if (Length != 0)
                 {
-                    --Length;
+                    Length--;
                     MoveLeft(index, 1);
                     Resize(Length);
                 }
@@ -272,7 +287,7 @@ namespace List
                 if (_array[i] == value)
                 {
                     RemoveByIndex(i);
-                    --i;
+                    i--;
                 }
             }
         }
@@ -290,7 +305,7 @@ namespace List
 
         public int FindIndexOfMaxElement()
         {
-            if(!(_array is null))
+            if (_array != null)
             {
                 if (Length > 0)
                 {
@@ -319,7 +334,7 @@ namespace List
 
         public int FindIndexOfMinElement()
         {
-            if(!(_array is null))
+            if (_array != null)
             {
                 if (Length > 0)
                 {
@@ -352,7 +367,7 @@ namespace List
 
         public void Sort(bool isAscending)
         {
-            if (!(_array is null))
+            if (_array != null)
             {
                 for (int i = 0; i < Length; ++i)
                 {
@@ -390,12 +405,13 @@ namespace List
             }
             return stringBuilder.ToString().Trim();
         }
+
         public override bool Equals(object obj)
         {
             if (obj is ArrayList)
             {
                 ArrayList list = (ArrayList)obj;
-                if(this.Length != list.Length)
+                if (this.Length != list.Length)
                 {
                     return false;
                 }
@@ -408,7 +424,8 @@ namespace List
                 }
 
                 return true;
-            } else
+            }
+            else
             {
                 throw new ArgumentException("Error. Wrong type");
             }
@@ -421,19 +438,22 @@ namespace List
                 _array[i] = _array[i - count];
             }
         }
-        private void MoveLeft (int index, int count)
+
+        private void MoveLeft(int index, int count)
         {
             for (int i = index; i < Length; ++i)
             {
                 _array[i] = _array[i + count];
             }
         }
+
         private void Swap(int firstIndex, int secondIndex)
         {
             int tmp = _array[firstIndex];
             _array[firstIndex] = _array[secondIndex];
             _array[secondIndex] = tmp;
         }
+
         private void Resize(int prevLength)
         {
             if ((Length >= _array.Length) || (Length <= _array.Length / 2))
