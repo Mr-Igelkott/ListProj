@@ -76,6 +76,7 @@ namespace List
                 _tail = _root;
             }
         }
+
         public void Add(IList list)
         {
             if (list != null)
@@ -99,6 +100,7 @@ namespace List
                 throw new ArgumentNullException("can't create list with null value");
             }
         }
+
         public void AddToStart(int value)
         {
             Node first = new Node(value);
@@ -106,6 +108,7 @@ namespace List
             _root = first;
             Length++;
         }
+
         public void AddToStart(IList list)
         {
             if (list != null)
@@ -124,6 +127,7 @@ namespace List
                 throw new ArgumentNullException("can't add list with null value");
             }
         }
+
         public void AddByIndex(int index, int value)
         {
             if ((index == 0 && Length == 0)
@@ -149,6 +153,7 @@ namespace List
                 throw new IndexOutOfRangeException();
             }
         }
+
         public void AddByIndex(int index, IList list)
         {
             if (list != null)
@@ -231,6 +236,7 @@ namespace List
                 throw new ArgumentException("nElmnt can't be bigger than length");
             }
         }
+
         public void RemoveAtStart()
         {
             if (Length > 0)
@@ -528,6 +534,7 @@ namespace List
             }
             return array;
         }
+
         public override string ToString()
         {
             Node curent = _root;
@@ -569,6 +576,7 @@ namespace List
             }
             throw new ArgumentException("incorrect");
         }
+
         private LinkedList(int[] array)
         {
             Length = 0;
@@ -585,6 +593,7 @@ namespace List
                 _tail = null;
             }
         }
+
         private Node GetNodeByIndex(int index)
         {
             if (index >= 0 && index < Length)

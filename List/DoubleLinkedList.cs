@@ -9,6 +9,7 @@ namespace List
         private DNode _root;
         private DNode _tail;
         public int Length { get; private set; }
+
         public int this[int index]
         {
             get
@@ -35,6 +36,7 @@ namespace List
                 }
             }
         }
+
         public DoubleLinkedList()
         {
             Length = 0;
@@ -48,13 +50,14 @@ namespace List
             _root = new DNode(value);
             _tail = _root;
         }
+
         public static DoubleLinkedList Create(int[] array)
         {
-            if (!(array is null))
+            if (array != null)
             {
                 return new DoubleLinkedList(array);
             }
-            throw new ArgumentNullException("array can't be null");
+            throw new ArgumentNullException("Array can't be null");
         }
        
         public void Add(int value)
@@ -72,9 +75,10 @@ namespace List
                 _tail = _root;
             }
         }
+
         public void Add(IList list)
         {
-            if (!(list is null))
+            if (list != null)
             {
                 DoubleLinkedList addList = DoubleLinkedList.Create(list.ToArray());
 
@@ -98,9 +102,10 @@ namespace List
             }
             else
             {
-                throw new ArgumentNullException("can't add null, you dummy");
+                throw new ArgumentNullException("Can't add null value");
             }
         }
+
         public void AddToStart(int value)
         {
             DNode newRoot = new DNode(value);
@@ -119,9 +124,10 @@ namespace List
 
             ++Length;
         }
+
         public void AddToStart(IList list)
         {
-            if (!(list is null))
+            if (list != null)
             {
                 DoubleLinkedList addList = DoubleLinkedList.Create(list.ToArray());
 
@@ -143,9 +149,10 @@ namespace List
             }
             else
             {
-                throw new ArgumentNullException("can't add null, you dummy");
+                throw new ArgumentNullException("Can't add null value");
             }
         }
+
         public void AddByIndex (int index, int value)
         {
             if ((index == 0 && Length == 0) || (index >= 0 && index < Length))
@@ -170,9 +177,10 @@ namespace List
                 throw new IndexOutOfRangeException();
             }
         }
+
         public void AddByIndex(int index, IList list)
         {
-            if (!(list is null))
+            if (list != null)
             {
 
                 if ((index == 0 && Length == 0) || (index >= 0 && index < Length))
@@ -204,11 +212,12 @@ namespace List
             }
             else
             {
-                throw new ArgumentNullException("can't add null, you dummy");
+                throw new ArgumentNullException("Can't add null value");
             }
             
             
         }
+
         public void Remove()
         {
             if (Length > 1)
@@ -225,17 +234,18 @@ namespace List
                 Length = 0;
             }
         }
-        public void Remove(int nElmnt)
+
+        public void Remove(int nElement)
         {
-            if (nElmnt <= Length)
+            if (nElement <= Length)
             {
-                if (nElmnt < Length)
+                if (nElement < Length)
                 {
-                    int index = Length - nElmnt - 1;
+                    int index = Length - nElement - 1;
                     DNode current = GetDNodeByIndex(index);
                     current.Next = null;
                     _tail = current;
-                    Length -= nElmnt;
+                    Length -= nElement;
                 }
                 else
                 {
@@ -246,16 +256,17 @@ namespace List
             }
             else
             {
-                throw new ArgumentException("nElmnt can't be bigger than overall length");
+                throw new ArgumentException("nElement can't be bigger than overall length");
             }
         }
+
         public void RemoveAtStart()
         {
             if (Length > 1)
             {
                 _root.Next.Previous = null;
                 _root = _root.Next;
-                --Length;
+                Length--;
             }
             else
             {
@@ -264,17 +275,18 @@ namespace List
                 Length = 0;
             }
         }
-        public void RemoveAtStart(int nElmnt)
+
+        public void RemoveAtStart(int nElement)
         {
-            if (nElmnt <= Length)
+            if (nElement <= Length)
             {
-                if (nElmnt < Length)
+                if (nElement < Length)
                 {
-                    DNode current = GetDNodeByIndex(nElmnt);
+                    DNode current = GetDNodeByIndex(nElement);
                     current.Previous = null;
                     _root = current;
 
-                    Length -= nElmnt;
+                    Length -= nElement;
                 }
                 else
                 {
@@ -285,7 +297,7 @@ namespace List
             }
             else
             {
-                throw new ArgumentException("nElmnt can't be bigger than overall length");
+                throw new ArgumentException("nElement can't be bigger than overall length");
             }
         }
 
@@ -305,7 +317,7 @@ namespace List
                     {
                         curent.Next.Previous = curent;
                     }
-                    --Length;
+                    Length--;
                 }
                 else
                 {
@@ -318,24 +330,24 @@ namespace List
             }
         }
 
-        public void RemoveByIndex(int index, int nElmnt)
+        public void RemoveByIndex(int index, int nElement)
         {
-            if (nElmnt >= 0)
+            if (nElement >= 0)
             {
                 if(index >= 0 && index < Length)
                 {
-                    if (Length != 0 && nElmnt != 0)
+                    if (Length != 0 && nElement != 0)
                     {
                         if (index != 0)
                         {
-                            if (Length - index - nElmnt > 0)
+                            if (Length - index - nElement > 0)
                             {
                                 DNode startDelete = GetDNodeByIndex(index - 1);
-                                DNode stopDelete = GetDNodeByIndex(index + nElmnt);
+                                DNode stopDelete = GetDNodeByIndex(index + nElement);
 
                                 startDelete.Next = stopDelete;
                                 stopDelete.Previous = startDelete;
-                                Length -= nElmnt;
+                                Length -= nElement;
                             }
                             else
                             {
@@ -347,7 +359,7 @@ namespace List
                         }
                         else
                         {
-                            RemoveAtStart(nElmnt);
+                            RemoveAtStart(nElement);
                         }
                     }
                 }
@@ -379,7 +391,7 @@ namespace List
 
         public void Reverse()
         {
-            if (!(this is null))
+            if (this != null)
             {
                 if (Length > 1)
                 {
@@ -516,7 +528,7 @@ namespace List
 
         public void Sort(bool isAscending)
         {
-            if (!(this is null))
+            if (this != null)
             {
                 DNode new_root = null;
                 
@@ -531,7 +543,7 @@ namespace List
                         tmp.Next = new_root;
                         tmp.Previous = null;
 
-                        if (tmp.Next is null)
+                        if (tmp.Next == null)
                         {
                             _tail = tmp;
                         }
@@ -544,16 +556,16 @@ namespace List
                     }
                     else
                     {
-                        DNode curent = new_root;
+                        DNode current = new_root;
 
-                        while ((!(curent.Next is null) && !(tmp.Value < curent.Next.Value) && isAscending)
-                            || (!(curent.Next is null) && !(tmp.Value > curent.Next.Value) && !isAscending))
+                        while (((current.Next != null) && !(tmp.Value < current.Next.Value) && isAscending)
+                            || ((current.Next != null) && !(tmp.Value > current.Next.Value) && !isAscending))
                         {
-                            curent = curent.Next;
+                            current = current.Next;
                         }
-                        tmp.Next = curent.Next;
+                        tmp.Next = current.Next;
 
-                        if(tmp.Next is null)
+                        if(tmp.Next == null)
                         {
                             _tail = tmp;
                         }
@@ -562,24 +574,25 @@ namespace List
                             tmp.Next.Previous = tmp;
                         }
 
-                        curent.Next = tmp;
-                        tmp.Previous = curent;
+                        current.Next = tmp;
+                        tmp.Previous = current;
                     }
                 }
 
                 _root = new_root;
             }
         }
+
         public int[] ToArray()
         {
             int[] array = new int[Length];
             int count = 0;
-            DNode curent = _root;
-            while (!(curent is null))
+            DNode current = _root;
+            while (current != null)
             {
-                array[count] = curent.Value;
-                ++count;
-                curent = curent.Next;
+                array[count] = current.Value;
+                count++;
+                current = current.Next;
             }
 
             return array;
@@ -587,13 +600,13 @@ namespace List
 
         public override string ToString()
         {
-            DNode curent = _root;
+            DNode current = _root;
             StringBuilder stringBuilder = new StringBuilder();
 
-            while(!(curent is null))
+            while(current != null)
             {
-                stringBuilder.Append($"{curent.Value} ");
-                curent = curent.Next;
+                stringBuilder.Append($"{current.Value} ");
+                current = current.Next;
             }
 
             return stringBuilder.ToString().Trim();
@@ -601,7 +614,7 @@ namespace List
 
         public override bool Equals(object obj)
         {
-            if(!(obj is null))
+            if(obj != null)
             {
                 DoubleLinkedList list = (DoubleLinkedList)obj;
                 bool isEqual = false;
@@ -610,31 +623,32 @@ namespace List
                 {
                     isEqual = true;
 
-                    DNode curentThis = this._root;
-                    DNode curentList = list._root;
+                    DNode currentThis = this._root;
+                    DNode currentList = list._root;
                     DNode prevThis = this._tail;
                     DNode prevList = list._tail;
 
-                    while(!(curentThis is null))
+                    while(currentThis != null)
                     {
-                        if(curentThis.Value != curentList.Value || prevThis.Value != prevList.Value)
+                        if(currentThis.Value != currentList.Value || prevThis.Value != prevList.Value)
                         {
                             isEqual = false;
                             break;
                         }
-                        curentThis = curentThis.Next;
-                        curentList = curentList.Next;
+                        currentThis = currentThis.Next;
+                        currentList = currentList.Next;
                         prevThis = prevThis.Previous;
                         prevList = prevList.Previous;
                     }
                 }
                 return isEqual;
             }
-            throw new ArgumentException("object can't be NULL, dummy");
+            throw new ArgumentException("Object can't be NULL");
         }
+
         private DoubleLinkedList(int[] array)
         {
-            if (!(array is null))
+            if (array != null)
             {
                 if (array.Length != 0)
                 {
@@ -656,13 +670,14 @@ namespace List
             }
             else
             {
-                throw new ArgumentNullException("object can't be NULL, dummy");
+                throw new ArgumentNullException("Object can't be NULL");
             }
         }
+
         private DNode GetDNodeByIndex(int index)
         {
             DNode current;
-            if (index < (int)(Length / 2))
+            if (index < Length / 2)
             {
                 current = _root;
                 for (int i = 1; i <= index; i++)

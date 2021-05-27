@@ -67,7 +67,7 @@ namespace List
             int realLength = (int)(Length * LengthDelta + 1);
             _array = new int[realLength];
 
-            for (int i = 0; i < Length; ++i)
+            for (int i = 0; i < Length; i++)
             {
                 _array[i] = initArray[i];
             }
@@ -88,14 +88,14 @@ namespace List
                 int prevLength = Length;
                 Length += list.Length;
                 this.Resize(prevLength);
-                for (int i = 0; i < list.Length; ++i)
+                for (int i = 0; i < list.Length; i++)
                 {
                     _array[prevLength + i] = list[i];
                 }
             }
             else
             {
-                throw new ArgumentNullException("can't add null");
+                throw new ArgumentNullException("Can't add NULL value");
             }
         }
 
@@ -115,7 +115,7 @@ namespace List
             }
             else
             {
-                throw new ArgumentNullException("can't add NULL value");
+                throw new ArgumentNullException("Can't add NULL value");
             }
         }
 
@@ -159,7 +159,7 @@ namespace List
             }
             else
             {
-                throw new ArgumentNullException("U can't add NULL, dummy");
+                throw new ArgumentNullException("Can't add NULL value");
             }
         }
 
@@ -172,16 +172,16 @@ namespace List
             }
         }
 
-        public void Remove(int nElmnt)
+        public void Remove(int nElement)
         {
-            if (nElmnt >= 0)
+            if (nElement >= 0)
             {
-                Length -= Length >= nElmnt ? nElmnt : Length;
+                Length -= Length >= nElement ? nElement : Length;
                 Resize(Length);
             }
             else
             {
-                throw new ArgumentException("U can't remove negative nElmnt");
+                throw new ArgumentException("Can't remove negative nElement");
             }
         }
 
@@ -195,17 +195,17 @@ namespace List
             }
         }
 
-        public void RemoveAtStart(int nElmnt)
+        public void RemoveAtStart(int nElement)
         {
-            if (nElmnt >= 0)
+            if (nElement >= 0)
             {
-                Length -= Length >= nElmnt ? nElmnt : Length;
-                MoveLeft(0, nElmnt);
+                Length -= Length >= nElement ? nElement : Length;
+                MoveLeft(0, nElement);
                 Resize(Length);
             }
             else
             {
-                throw new ArgumentException("U can't remove negative nElmnt");
+                throw new ArgumentException("Can't remove negative nElement");
             }
         }
 
@@ -225,16 +225,17 @@ namespace List
                 throw new IndexOutOfRangeException();
             }
         }
-        public void RemoveByIndex(int index, int nElmnt)
+
+        public void RemoveByIndex(int index, int nElement)
         {
-            if (nElmnt >= 0)
+            if (nElement >= 0)
             {
                 if ((index == 0 && Length == 0) || (index >= 0 && index < Length))
                 {
-                    if ((Length - index) >= nElmnt)
+                    if ((Length - index) >= nElement)
                     {
-                        Length -= nElmnt;
-                        MoveLeft(index, nElmnt);
+                        Length -= nElement;
+                        MoveLeft(index, nElement);
                     }
                     else if ((Length - index) > 0)
                     {
@@ -253,13 +254,13 @@ namespace List
             }
             else
             {
-                throw new ArgumentException("U can't remove negative nElmnt");
+                throw new ArgumentException("Can't remove negative nElement");
             }
         }
 
         public int FindIndexOf(int value)
         {
-            for (int i = 0; i < Length; ++i)
+            for (int i = 0; i < Length; i++)
             {
                 if (_array[i] == value)
                 {
