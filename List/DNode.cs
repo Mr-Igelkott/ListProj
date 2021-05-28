@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace List
+﻿namespace List
 {
     public class DNode
     {
@@ -17,7 +13,7 @@ namespace List
             Previous = null;
         }
 
-        public DNode (int value, DNode prevNode)
+        public DNode(int value, DNode prevNode)
         {
             this.Value = value;
             this.Previous = prevNode;

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace List
 {
-    public class DoubleLinkedList: IList
+    public class DoubleLinkedList : IList
     {
         private DNode _root;
         private DNode _tail;
@@ -59,7 +58,7 @@ namespace List
             }
             throw new ArgumentNullException("Array can't be null");
         }
-       
+
         public void Add(int value)
         {
             if (Length > 0)
@@ -153,7 +152,7 @@ namespace List
             }
         }
 
-        public void AddByIndex (int index, int value)
+        public void AddByIndex(int index, int value)
         {
             if ((index == 0 && Length == 0) || (index >= 0 && index < Length))
             {
@@ -214,8 +213,8 @@ namespace List
             {
                 throw new ArgumentNullException("Can't add null value");
             }
-            
-            
+
+
         }
 
         public void Remove()
@@ -334,7 +333,7 @@ namespace List
         {
             if (nElement >= 0)
             {
-                if(index >= 0 && index < Length)
+                if (index >= 0 && index < Length)
                 {
                     if (Length != 0 && nElement != 0)
                     {
@@ -531,8 +530,8 @@ namespace List
             if (this != null)
             {
                 DNode new_root = null;
-                
-                while(_root != null)
+
+                while (_root != null)
                 {
                     DNode tmp = _root;
                     _root = _root.Next;
@@ -565,7 +564,7 @@ namespace List
                         }
                         tmp.Next = current.Next;
 
-                        if(tmp.Next == null)
+                        if (tmp.Next == null)
                         {
                             _tail = tmp;
                         }
@@ -603,7 +602,7 @@ namespace List
             DNode current = _root;
             StringBuilder stringBuilder = new StringBuilder();
 
-            while(current != null)
+            while (current != null)
             {
                 stringBuilder.Append($"{current.Value} ");
                 current = current.Next;
@@ -614,7 +613,7 @@ namespace List
 
         public override bool Equals(object obj)
         {
-            if(obj != null)
+            if (obj != null)
             {
                 DoubleLinkedList list = (DoubleLinkedList)obj;
                 bool isEqual = false;
@@ -628,9 +627,9 @@ namespace List
                     DNode prevThis = this._tail;
                     DNode prevList = list._tail;
 
-                    while(currentThis != null)
+                    while (currentThis != null)
                     {
-                        if(currentThis.Value != currentList.Value || prevThis.Value != prevList.Value)
+                        if (currentThis.Value != currentList.Value || prevThis.Value != prevList.Value)
                         {
                             isEqual = false;
                             break;

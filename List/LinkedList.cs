@@ -263,7 +263,8 @@ namespace List
                     _root = null;
                     _tail = null;
                 }
-            } else
+            }
+            else
             {
                 throw new ArgumentException("nElmnt can't be bigger than length");
             }
@@ -561,7 +562,7 @@ namespace List
                     Node curentThis = this._root;
                     Node curentList = list._root;
 
-                    while(!(curentThis is null))
+                    while (!(curentThis is null))
                     {
                         if (curentThis.Value != curentList.Value)
                         {
